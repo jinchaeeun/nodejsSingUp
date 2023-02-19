@@ -1,5 +1,6 @@
-EsLint 및 Prettier 설치
-한방 참고: https://minjung-jeon.github.io/eslint-prettier-intellij/
+# EsLint 및 Prettier 설치
+
+###### 참고: https://minjung-jeon.github.io/eslint-prettier-intellij/
 
 1. EsLint 설치
    npm install -g eslint
@@ -15,3 +16,17 @@ EsLint 및 Prettier 설치
    Prettier Packages: ~\AppData\Roaming\npm\node_modules\prettier 선택합니다.
    On save 체크
    Keymap에서 Prettier > Reformat with Prettier에 Ctrl + S 로 등록. 기존 등록(Ctrl+ Alt + Shift + P) 삭제
+
+# DB 설정
+
+## MariaDB 설치
+
+1. 'nodetest' DataBase 생성
+
+2. 아래 쿼리 실행
+   `CREATE TABLE userTable (
+id int(12) NOT NULL AUTO_INCREMENT,
+username varchar(50) NOT NULL,
+password varchar(255) NOT NULL,
+PRIMARY KEY(id)
+) charset=utf8;`
