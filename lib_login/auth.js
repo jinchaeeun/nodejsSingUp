@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var template = require('./template.js');
+var template = require('../views/template.js');
 var db = require('../db');
 
 // 로그인 화면

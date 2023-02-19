@@ -30,3 +30,11 @@ username varchar(50) NOT NULL,
 password varchar(255) NOT NULL,
 PRIMARY KEY(id)
 ) charset=utf8;`
+
+`CREATE TABLE visitinfo (
+rowid int(12) NOT NULL AUTO_INCREMENT,
+username varchar(50) NOT NULL,
+phone varchar(13) NOT NULL,
+carnumber varchar(12) NOT NULL,
+PRIMARY KEY(rowid)
+) charset=utf8;`

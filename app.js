@@ -11,7 +11,7 @@ var indexRouter = require('./routes/index');
 var authRouter = require('./lib_login/auth');
 var mainRouter = require('./routes/main');
 var authCheck = require('./lib_login/authCheck.js');
-var template = require('./lib_login/template.js');
+var template = require('./views/template.js');
 
 var app = express();
 

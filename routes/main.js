@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
-var template = require('../lib_login/template.js');
+var template = require('../views/template.js');
+var visitlist = require('../views/visitlist.js');
 var db = require('../db');
 var authCheck = require('../lib_login/authCheck.js');
 
@@ -25,7 +26,11 @@ router.get('/home', function (req, res) {
 <!--		<p><input class="login" type="date" name="startdate" placeholder="방문 시작일시"></p>-->
 <!--		<p><input class="login" type="date" name="enddate" placeholder="방문 종료일시"></p>-->
 		<p><input class="btn" type="submit" value="제출"></p>
-		</form>`,
+		</form>
+		<form name='getvisitlist' action="/main/getvisitlist/" method="post">
+		<input class="login" type="hidden" name="username" value=${req.session.nickname}>
+		</form>
+		<p><a href="#" onclick="javascript:document.getvisitlist.submit();">방문 등록 정보 조회</a></p>`,
 		authCheck.statusUI(req, res),
 	);
 	res.send(html);
@@ -60,10 +65,52 @@ router.post('/register_visiting', function (request, response) {
 				} else {
 					// DB에 같은 차량이 이미 등록된 경우
 					response.send(`<script type="text/javascript">alert("이미 등록된 차량입니다."); 
-                	// document.location.href="/main/home";</script>`);
+                	// document.location.href="/main/home";
+                	</script>`);
 				}
 			},
 		);
+	} else {
+		// 입력되지 않은 정보가 있는 경우
+		response.send(`<script type="text/javascript">alert("입력되지 않은 정보가 있습니다."); 
+        </script>`); // document.location.href="/main/home";
+	}
+});
+
+// 방문자 정보 조회
+router.post('/getvisitlist', function (request, response) {
+	var username = request.body.username;
+
+	if (username) {
+		db.query('SELECT * FROM visitinfo', function (error, results, fields) {
+			// DB에 등록한 정보가 있는지 확인
+			if (error) throw error;
+			if (results.length >= 0) {
+				results.map((x, index) => {
+					console.log(index, '---', x);
+				});
+
+				var title = 'Welcome';
+				var description = 'Hello, Node.js';
+				var list = visitlist.list(results); // list의 인자로 topics 데이터를 전달
+				var html = visitlist.HTML(
+					title,
+					list,
+					`<h2>${title}</h2>${description}`,
+					`<a href="#">가짜</a>`,
+				);
+
+				// response.redirect('/auth/login', {results: 'k'});
+				// response.send(
+				// 	`<script type="text/javascript">alert("등록된 정보가 있습니다.", ${results[0].rowid} )</script>`,
+				// );
+			} else {
+				response.send(
+					`<script type="text/javascript">alert("등록된 정보가 없습니다.")</script>`,
+				);
+				// document.location.href="/main/home";</script>`);
+			}
+		});
 	} else {
 		// 입력되지 않은 정보가 있는 경우
 		response.send(`<script type="text/javascript">alert("입력되지 않은 정보가 있습니다."); 
