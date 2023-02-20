@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= title %></title>
+</head>
+<body>
+  <table>
+    <tr>
+      <td>순서</td>
+      <td>이름</td>
+      <td>연락처</td>
+      <td>등록차량</td>
+    </tr>
+    <%
+    for(var i=0; i<rows.length; i++)
+    {
+      var data = rows[i];
+    %>
+    <tr>
+      <td><%= data.rowid %></td>
+      <td><%= data.username %></td>
+      <td><%= data.phone %></td>
+      <td><%= data.carnumber %></td>
+    </tr>
+    <%}%>
+  </table>
+</body>
+</html>

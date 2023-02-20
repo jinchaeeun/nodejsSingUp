@@ -12,7 +12,7 @@ var authRouter = require('./lib_login/auth');
 var mainRouter = require('./routes/main');
 var authCheck = require('./lib_login/authCheck.js');
 var template = require('./views/template.js');
-
+//var listView = require('./views/list.js');
 var app = express();
 
 // view engine setup
